@@ -25,11 +25,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .page {
-  background: #00a7f2;
   .a-link {
     display: block;
     margin: 20px auto;
     text-align: center;
   }
 }
-</style> 
+</style>

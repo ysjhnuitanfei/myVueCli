@@ -1,5 +1,19 @@
 <template>
-  <div class="header-view"></div>
+  <div class="header-view">
+    <div class="back">11</div>
+    <div class="header-title">Demo菜单</div>
+    <div class="header-menu" @click="showMenu">
+      <svg t="1533217449082" class="icon" style="width:.64rem; height:.64rem" viewBox="0 0 1024 1024">
+        <path d="M128 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#666666" p-id="1470"></path>
+        <path d="M896 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#666666" p-id="1471"></path>
+        <path d="M512 512m-160 0a160 160 0 1 0 320 0 160 160 0 1 0-320 0Z" fill="#666666" p-id="1472"></path>
+      </svg>
+    </div>
+    <div class="menu-list" v-show="menu">
+      <div>首页</div>
+      <div>刷新</div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -8,10 +22,12 @@ export default {
   },
   data () {
     return {
+      menu: false
     }
   },
   methods: {
-    demo () {
+    showMenu () {
+      this.menu = !this.menu
     }
   },
   mounted () {
@@ -20,13 +36,55 @@ export default {
 </script>
 <style lang="less" scoped>
 .header-view {
+  display: flex;
+  align-content: center;
+  align-items: center;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 144px;
-  box-shadow: 0 1px 1px yellow;
+  box-shadow: 0 1px 1px #999;
   background: #fff;
   z-index: 9999;
+  .back,
+  .header-menu {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 144px;
+    height: 144px;
+  }
+  .back {
+    left: 0;
+  }
+  .header-menu {
+    right: 0;
+  }
+  .header-title {
+    flex: 1;
+    color: #666;
+    text-align: center;
+    font-size: 52px;
+    font-weight: bold;
+  }
+
+  .menu-list {
+    position: fixed;
+    top: 124px;
+    right: 10px;
+    width: 200px;
+    padding: 20px 0;
+    box-shadow: 0 1px 5px #ccc;
+    background: #fff;
+    div {
+      line-height: 80px;
+      color: #333;
+      text-align: center;
+    }
+  }
 }
 </style>
