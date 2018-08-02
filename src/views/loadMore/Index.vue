@@ -1,5 +1,5 @@
 <template>
-  <div class="page">加载更多!</div>
+  <div class="page">加载更多</div>
 </template>
 <script>
 export default {
