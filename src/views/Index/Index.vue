@@ -1,10 +1,10 @@
 <template>
-  <scroller>
-    <div class="page clearfix">
+  <div class="page clearfix">
+    <scroller>
       <router-link class="a-link" :to="{path: '/pullrefresh'}">下拉刷新</router-link>
       <router-link class="a-link" :to="{path: '/pullrefresh'}">加载更多</router-link>
-    </div>
-  </scroller>
+    </scroller>
+  </div>
 </template>
 <script>
 export default {

@@ -37,11 +37,8 @@ export default {
 <style lang="less" scoped>
 .header-view {
   display: flex;
-  align-content: center;
+  justify-content: center;
   align-items: center;
-  position: fixed;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 144px;
   box-shadow: 0 1px 1px #999;

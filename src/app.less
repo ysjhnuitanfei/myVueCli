@@ -73,7 +73,13 @@ button {
     clear: both;
 }
 
-// scroll样式覆盖
-._v-container {
-    padding-top: 144px;
+// 全局布局
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .page {
+        flex: 1;
+        position: relative;
+    }
 }
