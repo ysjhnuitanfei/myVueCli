@@ -4,6 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueScroller from 'vue-scroller'
+
+// 以插件形式引入toast组件
+import {
+  ToastPlugin
+} from 'vux'
+Vue.use(ToastPlugin)
+
+// vue-scroll插件
 Vue.use(VueScroller)
 
 Vue.config.productionTip = false
@@ -15,3 +23,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+const FastClick = require('fastclick')
+FastClick.attach(document.body)

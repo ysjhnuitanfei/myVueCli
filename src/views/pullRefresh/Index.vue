@@ -1,13 +1,10 @@
 <template>
   <div class="page">
-    <div class="shua">
-      <scroller :on-refresh="refresh" :on-infinite="infinite">
-
-        <div class="aaa" v-for="(item, index) in items" :key="index">
-          {{ item }}
-        </div>
-      </scroller>
-    </div>
+    <scroller :on-refresh="refresh" :on-infinite="infinite">
+      <div class="aaa" v-for="(item, index) in items" :key="index">
+        {{ item }}
+      </div>
+    </scroller>
   </div>
 </template>
 <script>
@@ -25,14 +22,13 @@ export default {
     refresh (done) {
       setTimeout(() => {
         this.items = []
-        console.log(this.items)
         this.loadData()
         done()
       }, 1500)
     },
     infinite (done) {
       if (this.bottom > 40) {
-        done(false)
+        done(true)
         return
       }
       setTimeout(() => {
@@ -60,8 +56,6 @@ export default {
 <style lang="less" scoped>
 .shua {
   position: relative;
-  height: 1800px;
-  margin-top: 300px;
 }
 .aaa {
   line-height: 80px;

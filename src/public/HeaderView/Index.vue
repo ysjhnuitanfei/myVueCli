@@ -1,6 +1,10 @@
 <template>
   <div class="header-view">
-    <div class="back">11</div>
+    <div class="back" @click="goBack">
+      <svg t="1533263250578" class="icon" style="width:.64rem; height:.64rem" viewBox="0 0 1024 1024">
+        <path d="M339.194 511.989L758.842 92.363c13.636-13.636 13.636-35.727 0-49.363-13.637-13.637-35.728-13.637-49.364 0L265.16 487.318c-13.637 13.637-13.637 35.727 0 49.363L709.456 981c13.658 13.637 35.749 13.637 49.386 0 13.636-13.637 13.636-35.727 0-49.363L339.194 511.989z" p-id="1047" fill="#666666"></path>
+      </svg>
+    </div>
     <div class="header-title">Demo菜单</div>
     <div class="header-menu" @click="showMenu">
       <svg t="1533217449082" class="icon" style="width:.64rem; height:.64rem" viewBox="0 0 1024 1024">
@@ -26,6 +30,9 @@ export default {
     }
   },
   methods: {
+    goBack () {
+      this.$router.back(-1)
+    },
     showMenu () {
       this.menu = !this.menu
     }

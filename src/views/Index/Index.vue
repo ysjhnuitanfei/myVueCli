@@ -2,7 +2,9 @@
   <div class="page clearfix">
     <scroller>
       <router-link class="a-link" :to="{path: '/pullrefresh'}">下拉刷新</router-link>
-      <router-link class="a-link" :to="{path: '/pullrefresh'}">加载更多</router-link>
+      <router-link class="a-link" :to="{path: '/loadMore'}">加载更多</router-link>
+      <router-link class="a-link" :to="{path: '/pullTo'}">pull-to</router-link>
+      <router-link class="a-link" :to="{path: '/vux'}">Vux</router-link>
     </scroller>
   </div>
 </template>
