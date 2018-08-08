@@ -5,6 +5,7 @@
       <router-link class="a-link" :to="{path: '/loadMore'}">加载更多</router-link>
       <router-link class="a-link" :to="{path: '/pullTo'}">pull-to</router-link>
       <router-link class="a-link" :to="{path: '/vux'}">Vux</router-link>
+      <router-link class="a-link" :to="{path: '/request'}">接口测试</router-link>
     </scroller>
   </div>
 </template>

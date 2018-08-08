@@ -7,6 +7,7 @@ const PullRefresh = resolve => require(['@/views/PullRefresh/Index'], resolve)
 const LoadMore = resolve => require(['@/views/LoadMore/Index'], resolve)
 const PullTo = resolve => require(['@/views/PullTo/Index'], resolve)
 const Vux = resolve => require(['@/views/Vux/Index'], resolve)
+const Request = resolve => require(['@/views/Request/Index'], resolve)
 
 let router = new Router({
   routes: [
@@ -54,6 +55,13 @@ let router = new Router({
       component: Vux,
       meta: {
         title: 'Vux'
+      }
+    },
+    {
+      path: '/request',
+      component: Request,
+      meta: {
+        title: 'Request'
       }
     }
   ]
