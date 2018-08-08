@@ -3,17 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueScroller from 'vue-scroller'
-import BScroll from 'better-scroll'
 
 // 以插件形式引入toast组件
 import {
   ToastPlugin
 } from 'vux'
 Vue.use(ToastPlugin)
-
-// vue-scroll插件
-Vue.use(VueScroller, BScroll)
 
 Vue.config.productionTip = false
 

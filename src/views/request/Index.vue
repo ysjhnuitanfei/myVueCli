@@ -1,9 +1,9 @@
 <template>
   <div class="page">
-      <div v-for="(item, index) in list" :key="index">
-        <div>ID: {{item.moduleId}}</div>
-        <div>{{item.name}}</div>
-      </div>
+    <div v-for="(item, index) in list" :key="index">
+      <div>ID: {{item.moduleId}}</div>
+      <div>{{item.name}}</div>
+    </div>
   </div>
 </template>
 <script>

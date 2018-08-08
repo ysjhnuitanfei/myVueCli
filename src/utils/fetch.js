@@ -3,7 +3,7 @@ import Utils from '../utils'
 import store from '../store'
 
 const service = axios.create({
-  baseURL: '', // api的base_url
+  // baseURL: 'http://gamebbsh5.vivo.com.cn', // api的base_url
   timeout: 10000, // 请求超时时间
   headers: { 'X-Custom-Header': 'foobar' }
   // transformRequest: data => qs.stringify(data)
