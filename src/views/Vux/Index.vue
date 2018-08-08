@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-    <div @click="demo">toast</div>
-    <div @click="tips">tips</div>
+    <div @click="demo">toast提示框</div>
+    <div @click="tips">网页弹框测试</div>
   </div>
 </template>
 <script>
@@ -17,10 +17,10 @@ export default {
   },
   methods: {
     demo () {
-      Utils.toast('aaa', 2000)
+      Utils.toast('toast提示框')
     },
     tips () {
-      Utils.tips('tips提示框', 10000)
+      Utils.tips('网页弹框测试')
     }
   },
   mounted () {

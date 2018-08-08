@@ -5,7 +5,7 @@ function toast (content, time) {
     type: 'text',
     text: content,
     position: 'bottom',
-    time: time
+    time: 2000
   })
 }
 export default toast
