@@ -1,7 +1,9 @@
 <template>
   <div class="page">
-    <div @click="demo">toast提示框</div>
-    <div @click="tips">网页弹框测试</div>
+    <div>别名路径图片测试</div>
+    <img style="margin:auto;display:block" src="~assets/images/logo.png">
+    <div class="box" @click="demo">toast提示框</div>
+    <div class="box" @click="tips">测试当前登录态</div>
   </div>
 </template>
 <script>
@@ -20,11 +22,10 @@ export default {
       Utils.toast('toast提示框')
     },
     tips () {
-      Utils.tips('网页弹框测试')
+      Utils.toast(String(this.$store.state.headerView.isLogin))
     }
   },
   async mounted () {
-
   }
 }
 </script>
@@ -32,5 +33,12 @@ export default {
 .page div {
   text-align: center;
   margin-top: 20px;
+}
+.box {
+  width: 400px;
+  height: 80px;
+  background: #00a7f2;
+  margin: auto;
+  font-size: 50px;
 }
 </style>

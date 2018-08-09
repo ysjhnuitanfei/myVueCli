@@ -2,6 +2,11 @@
   <div class="page clearfix">
     <router-link class="a-link" :to="{path: '/vux'}">Vux</router-link>
     <router-link class="a-link" :to="{path: '/request'}">接口测试</router-link>
+    <router-link class="a-link" :to="{path: '/scroll'}">scroll</router-link>
+    <router-link class="a-link" :to="{path: '/request'}">Request</router-link>
+
+    <div>当前登录状态：{{this.$store.state.headerView.isLogin}}</div>
+    <div class="setLogin" @click="setLogin">设置当前登录态</div>
   </div>
 </template>
 <script>
@@ -14,7 +19,9 @@ export default {
     }
   },
   methods: {
-    demo () {
+    // 设置当前登录态
+    setLogin () {
+      this.$store.commit('login')
     }
   },
   mounted () {
@@ -27,6 +34,12 @@ export default {
     display: block;
     margin: 20px auto;
     text-align: center;
+  }
+  .setLogin {
+    width: 420px;
+    height: 100px;
+    background: #f00;
+    margin: auto;
   }
 }
 </style>

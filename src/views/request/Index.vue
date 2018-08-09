@@ -1,8 +1,26 @@
 <template>
   <div class="page">
-    <div v-for="(item, index) in list" :key="index">
-      <div>ID: {{item.moduleId}}</div>
-      <div>{{item.name}}</div>
+    <div style="padding:20px;background:#00a7f2">热门推荐</div>
+    <div class="card-item" v-for="(item, index) in hot" :key="index">
+      <img :src="item.h5_thumb">
+      <div class="mess">
+        <div class="title">{{item.brand}}</div>
+        <div class="monry">{{item.title}}</div>
+        <div class="monry">指导价：{{item.fee}}</div>
+        <div class="monry">首付：{{item.down_pay}}</div>
+        <div class="monry">佣金：{{item.month_pay}}</div>
+      </div>
+    </div>
+    <div style="padding:20px;background:#00a7f2">车型列表</div>
+    <div class="card-item" v-for="(list, index) in list" :key="index">
+      <img :src="list.h5_thumb">
+      <div class="mess">
+        <div class="title">{{list.brand}}</div>
+        <div class="monry">{{list.title}}</div>
+        <div class="monry">指导价：{{list.fee}}</div>
+        <div class="monry">首付：{{list.down_pay}}</div>
+        <div class="monry">佣金：{{list.month_pay}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,23 +33,17 @@ export default {
   },
   data () {
     return {
-      list: null,
-      pageIndex: 0
+      hot: null,
+      list: null
     }
   },
   methods: {
     async getList () {
-      this.pageIndex++
       var result = await API.home.list({
-        type: 2,
-        pageIndex: this.pageIndex,
-        pageSize: 20
       })
-      if (this.pageIndex === 1) {
-        this.list = []
-      }
       if (result.code === 0) {
-        this.list = this.list.concat(result.data.modules)
+        this.hot = result.data.hot
+        this.list = result.data.list
       } else {
         Utils.toast('系统错误')
       }

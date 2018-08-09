@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import state from './state'
+import headerView from './headerView'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    state
+    headerView
   }
 })

@@ -3,9 +3,8 @@ import Utils from '../utils'
 import store from '../store'
 
 const service = axios.create({
-  // baseURL: 'http://gamebbsh5.vivo.com.cn', // api的base_url
-  timeout: 10000, // 请求超时时间
-  headers: { 'X-Custom-Header': 'foobar' }
+  baseURL: process.env.API_HOST, // api的base_url
+  timeout: 10000 // 请求超时时间
   // transformRequest: data => qs.stringify(data)
 })
 // request拦截器

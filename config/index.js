@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const ip = require('ip')
 
 module.exports = {
   dev: {
@@ -12,14 +13,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       "/mvc/**": {
-        "target": "http://gamebbsh5.vivo.com.cn",
+        "target": "http://dev.cyb.kuaiqiangche.cc",
         "changeOrigin": true,
         "secure": true
       }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: ip.address(), // ip地址。默认寻找本机ip
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

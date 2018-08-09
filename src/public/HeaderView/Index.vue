@@ -1,32 +1,33 @@
 <template>
-  <div class="header-view">
-    <div class="back" @click="goBack">
+  <div class="header-view" v-show="showHeader">
+    <div class="back" @click="goBack" v-show="preBtn">
       <svg t="1533263250578" class="icon" style="width:.64rem; height:.64rem" viewBox="0 0 1024 1024">
         <path d="M339.194 511.989L758.842 92.363c13.636-13.636 13.636-35.727 0-49.363-13.637-13.637-35.728-13.637-49.364 0L265.16 487.318c-13.637 13.637-13.637 35.727 0 49.363L709.456 981c13.658 13.637 35.749 13.637 49.386 0 13.636-13.637 13.636-35.727 0-49.363L339.194 511.989z" p-id="1047" fill="#666666"></path>
       </svg>
     </div>
-    <div class="header-title">Demo菜单</div>
-    <div class="header-menu" @click="showMenu">
+    <div class="header-title" v-show="title">{{title}}</div>
+    <div class="header-menu" @click="showMenu" v-show="menu">
       <svg t="1533217449082" class="icon" style="width:.64rem; height:.64rem" viewBox="0 0 1024 1024">
         <path d="M128 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#666666" p-id="1470"></path>
         <path d="M896 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#666666" p-id="1471"></path>
         <path d="M512 512m-160 0a160 160 0 1 0 320 0 160 160 0 1 0-320 0Z" fill="#666666" p-id="1472"></path>
       </svg>
     </div>
-    <div class="menu-list" v-show="menu">
-      <div>首页</div>
-      <div>刷新</div>
+    <div class="menu-list" v-show="menuDom">
+      <div v-show="goIndex">首页</div>
+      <div v-show="refesh">刷新</div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: '',
+  name: 'headerView',
+  props: ['showHeader', 'title', 'preBtn', 'menu', 'goIndex', 'refesh'],
   components: {
   },
   data () {
     return {
-      menu: false
+      menuDom: false
     }
   },
   methods: {
@@ -34,10 +35,11 @@ export default {
       this.$router.back(-1)
     },
     showMenu () {
-      this.menu = !this.menu
+      this.menuDom = !this.menuDom
     }
   },
   mounted () {
+    console.log(this.$store.state.headerView.isLogin)
   }
 }
 </script>
