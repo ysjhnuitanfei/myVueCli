@@ -16,7 +16,7 @@ const headerview = {
     // 头部状态方法&状态设置
     setHeader (state, headerinfo) {
       if (headerinfo && headerinfo.showHeader) {
-        state.showHeader = true
+        state.showHeader = headerinfo.showHeader
       } else {
         state.showHeader = false
       }
@@ -43,9 +43,6 @@ const headerview = {
       } else {
         state.refesh = false
       }
-    },
-    clear (state) {
-      state.title = ''
     },
     login (state) {
       state.isLogin = true

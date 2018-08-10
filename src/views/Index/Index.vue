@@ -3,10 +3,7 @@
     <router-link class="a-link" :to="{path: '/vux'}">Vux</router-link>
     <router-link class="a-link" :to="{path: '/request'}">接口测试</router-link>
     <router-link class="a-link" :to="{path: '/scroll'}">scroll</router-link>
-    <router-link class="a-link" :to="{path: '/request'}">Request</router-link>
-
-    <div>当前登录状态：{{this.$store.state.headerView.isLogin}}</div>
-    <div class="setLogin" @click="setLogin">设置当前登录态</div>
+    <router-link class="a-link" :to="{path: '/error'}">地址错误404页面</router-link>
   </div>
 </template>
 <script>

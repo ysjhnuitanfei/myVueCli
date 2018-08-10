@@ -1,17 +1,6 @@
 <template>
   <div class="page">
     <div style="padding:20px;background:#00a7f2">热门推荐</div>
-    <div class="card-item" v-for="(item, index) in hot" :key="index">
-      <img :src="item.h5_thumb">
-      <div class="mess">
-        <div class="title">{{item.brand}}</div>
-        <div class="monry">{{item.title}}</div>
-        <div class="monry">指导价：{{item.fee}}</div>
-        <div class="monry">首付：{{item.down_pay}}</div>
-        <div class="monry">佣金：{{item.month_pay}}</div>
-      </div>
-    </div>
-    <div style="padding:20px;background:#00a7f2">车型列表</div>
     <div class="card-item" v-for="(list, index) in list" :key="index">
       <img :src="list.h5_thumb">
       <div class="mess">
@@ -40,6 +29,8 @@ export default {
   methods: {
     async getList () {
       var result = await API.home.list({
+        loading: true, // 请求接口中是否开启loading
+        acceptError: true // 是否允许自行处理错误信息
       })
       if (result.code === 0) {
         this.hot = result.data.hot

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/'
-import Utils from '../utils'
 
 Vue.use(Router)
 const Index = resolve => require(['@/views/Index/Index'], resolve)
@@ -21,10 +20,9 @@ let router = new Router({
           component: Index,
           name: 'Index',
           meta: {
-            showHeader: true,
             title: '首页',
-            preBtn: false,
-            menu: true
+            menu: true,
+            showHeader: false
           }
         }
       ]
@@ -33,7 +31,8 @@ let router = new Router({
       path: '/vux',
       component: Vux,
       meta: {
-        title: 'Vux'
+        title: 'vux-toast',
+        showHeader: true
       }
     },
     {
@@ -66,18 +65,39 @@ router.beforeEach(function (to, from, next) {
     window._hmt.push(['_trackPageview', '/#' + to.fullPath])
   }
   if (!window.navigator.onLine) {
-    Utils.toast('网络异常，请检查网络设置')
+    store.commit('loadingStatus', {
+      isLoading: false
+    })
+    // 网络断开
+    store.commit('setError', {
+      msg: '网络异常，请检查网络设置',
+      show: true
+    })
     window.location.hash = '#' + to.fullPath
     return
+  } else {
+    store.commit('loadingStatus', {
+      isLoading: true,
+      immediately: true
+    })
   }
 
   let meta = (to && to.meta) || {}
   let title = meta.title || '首页'
   let showHeader = meta.showHeader
+  // 如果没有定义showheader，默认返回true
+  if (meta && meta.showHeader === undefined) {
+    showHeader = true
+  }
+  // 如果没有定义返回按钮，默认返回true
+  let preBtn = meta.preBtn
+  if (meta && meta.preBtn === undefined) {
+    preBtn = true
+  }
   store.commit('setHeader', {
     title: title,
     showHeader: showHeader,
-    preBtn: meta.preBtn,
+    preBtn: preBtn,
     menu: meta.menu,
     goIndex: meta.goIndex,
     refesh: meta.goIndex
@@ -88,9 +108,25 @@ router.beforeEach(function (to, from, next) {
 
 router.afterEach(function (transition) {
   if (transition.matched.length === 0) {
-    Utils.toast('页面不存在，请检查您访问的页面地址！')
+    store.commit('loadingStatus', {
+      isLoading: false
+    })
+    // 页面地址不存在，显示错误页
+    store.commit('setError', {
+      msg: '页面走丢了！',
+      show: true
+    })
     return
+  } else {
+    // 页面存在，关闭错误页
+    store.commit('setError', {
+      msg: '',
+      show: false
+    })
   }
+  store.commit('loadingStatus', {
+    isLoading: false
+  })
   document.title = transition.meta.title || ''
 })
 export default router
