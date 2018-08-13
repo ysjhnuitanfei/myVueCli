@@ -50,14 +50,14 @@ export default {
           this.$refs.LoadMore.finish = true
         }
         // 第一次数据渲染完毕，如果内容没有达到满屏且还有下一页，继续执行加载方法
-        if (this.pageIndex === 1 && result.message === 'ok') {
-          this.$refs.LoadMore.fullPage = true
-        }
+        // if (this.pageIndex === 1 && result.message === 'ok') {
+        //   this.$refs.LoadMore.fullPage = true
+        // }
       } else {
         Utils.toast('系统错误')
       }
       // 模拟加载完成，实际开发删除该代码
-      if (this.pageIndex > 5) {
+      if (this.pageIndex >= 5) {
         this.$refs.LoadMore.finish = true
         return
       }
@@ -77,6 +77,7 @@ div {
   text-align: center;
 }
 .card-item {
-  height: 300px;
+  height: 200px;
+  overflow: hidden;
 }
 </style>
