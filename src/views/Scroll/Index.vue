@@ -1,18 +1,16 @@
 <template>
-  <div class="page">
-    <div class="scroll-dom" id="scrollDom"></div>
-  </div>
+  <LoadMore ref="LoadMore" @loadMore="onScrollBottom">
+    <div class="scroll-dom" id="scrollDom">111</div>
+    <div style="height:5px;background:#00a7f2"></div>
+  </LoadMore>
 </template>
-<style lang="less">
-.scroll-dom {
-  height: 4000px;
-  background: #f00;
-  margin: 200px;
-}
-</style>
+
 <script>
+import LoadMore from '@/public/LoadMore/Index.vue'
+
 export default {
   components: {
+    LoadMore
   },
   data () {
     return {
@@ -20,12 +18,18 @@ export default {
     }
   },
   mounted () {
-    document.getElementById('scrollDom').addEventListener('scroll', this.myFunction)
   },
   methods: {
-    myFunction () {
+    onScrollBottom () {
       console.log('111')
     }
   }
 }
 </script>
+<style lang="less">
+.scroll-dom {
+  width: 100%;
+  height: 3500px;
+  background: #f00;
+}
+</style>

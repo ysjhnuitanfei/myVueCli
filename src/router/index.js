@@ -65,9 +65,6 @@ router.beforeEach(function (to, from, next) {
     window._hmt.push(['_trackPageview', '/#' + to.fullPath])
   }
   if (!window.navigator.onLine) {
-    store.commit('loadingStatus', {
-      isLoading: false
-    })
     // 网络断开
     store.commit('setError', {
       msg: '网络异常，请检查网络设置',

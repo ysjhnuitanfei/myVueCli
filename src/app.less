@@ -95,7 +95,14 @@ button {
     .page-content {
         flex: 1;
         position: relative;
-        overflow: auto;
+        overflow: hidden;
+        .page {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
     }
 }
 
