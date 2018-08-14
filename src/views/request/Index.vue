@@ -49,10 +49,6 @@ export default {
         if (!result.message === 'ok') {
           this.$refs.LoadMore.finish = true
         }
-        // 第一次数据渲染完毕，如果内容没有达到满屏且还有下一页，继续执行加载方法
-        // if (this.pageIndex === 1 && result.message === 'ok') {
-        //   this.$refs.LoadMore.fullPage = true
-        // }
       } else {
         Utils.toast('系统错误')
       }
@@ -68,7 +64,7 @@ export default {
     }
   },
   mounted () {
-    this.getList()
+    // this.getList()
   }
 }
 </script>
@@ -77,7 +73,6 @@ div {
   text-align: center;
 }
 .card-item {
-  height: 200px;
   overflow: hidden;
 }
 </style>

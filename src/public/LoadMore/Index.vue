@@ -32,19 +32,17 @@ export default {
   created () {
   },
   mounted () {
-    // this.switchBottom()
-    // this.bindSrcoll()
+    this.switchBottom()
   },
   methods: {
-    // 判断.load-more内容是否大于自身可视区域
     switchBottom () {
       this.$nextTick(() => {
+        // 判断.load-more内容是否大于自身可视区域
         if (this.$el.scrollHeight > this.$el.clientHeight) {
           this.showState = true
         } else {
-          // 如果页面不足一屏且且还有下一页数据，继续执行加载更多方法
+          // 如果页面不足一屏且还有下一页数据，继续执行加载更多方法
           if (!this.finish) {
-            // 加载状态显示
             setTimeout(() => {
               this.$emit('loadMore')
             }, 1000)
