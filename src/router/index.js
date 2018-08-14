@@ -7,6 +7,7 @@ const Index = resolve => require(['@/views/Index/Index'], resolve)
 const Vux = resolve => require(['@/views/Vux/Index'], resolve)
 const Request = resolve => require(['@/views/Request/Index'], resolve)
 const Scroll = resolve => require(['@/views/Scroll/Index'], resolve)
+const Touch = resolve => require(['@/views/Touch/Index'], resolve)
 
 let router = new Router({
   routes: [
@@ -55,6 +56,13 @@ let router = new Router({
       component: Request,
       meta: {
         title: 'Request'
+      }
+    },
+    {
+      path: '/touch',
+      component: Touch,
+      meta: {
+        title: 'Touch'
       }
     }
   ]

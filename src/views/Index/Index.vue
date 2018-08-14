@@ -1,15 +1,23 @@
 <template>
   <div class="page clearfix">
-    <router-link class="a-link" :to="{path: '/vux'}">Toast提示</router-link>
-    <router-link class="a-link" :to="{path: '/request'}">接口请求1</router-link>
-    <router-link class="a-link" :to="{path: '/scroll'}">接口请求2</router-link>
-    <router-link class="a-link" :to="{path: '/error'}">地址错误404页面</router-link>
+    <headerNav></headerNav>
+    <div class="flex flex-center">
+      <router-link class="a-link flex flex-center" :to="{path: '/vux'}">toast</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/touch'}">touch</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/request'}">接口1</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/scroll'}">接口2</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/error'}">404页面</router-link>
+    </div>
+    <div style="height:2000px;"></div>
   </div>
 </template>
 <script>
+import headerNav from './components/headerNav'
+
 export default {
   name: '',
   components: {
+    headerNav
   },
   data () {
     return {
@@ -28,15 +36,8 @@ export default {
 <style lang="less" scoped>
 .page {
   .a-link {
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-  }
-  .setLogin {
-    width: 420px;
-    height: 100px;
-    background: #f00;
-    margin: auto;
+    width: 50%;
+    margin: 50px auto;
   }
 }
 </style>
