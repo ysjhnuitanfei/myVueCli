@@ -1,5 +1,25 @@
 <template>
-  <div class="pull-down-content"></div>
+  <div class="pull-down-content">
+    <div class="refresh-state flex flex-center">
+      <div class="loading-pull  trans-rotate" v-if="state == 0">
+        <img class="full" src="~assets/images/loading/loading-pull.png">
+      </div>
+      <div class="loading-pull  trans-rotate" v-if="state == 1">
+        <img v-if="state == 1" class="full" src="~assets/images/loading/loading-pulled.png">
+      </div>
+      <div class="loading-pull trans-rotate-none trans-refresh" v-if="state == 2">
+        <img v-if="state == 2" class="full" src="~assets/images/loading/loading-refresh.png">
+      </div>
+      <div class="loading-pull trans-rotate-none trans-ok" v-if="state == 3">
+        <img v-if="state == 3" class="full" src="~assets/images/loading/loading-ok.png">
+      </div>
+      <div class="loading-pull trans-rotate-none trans-error" v-if="state == 4">
+        <img v-if="state == 4" class="full" src="~assets/images/loading/loading-error.png">
+      </div>
+      <span>{{pullText}}</span>
+    </div>
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
@@ -8,23 +28,28 @@ export default {
   },
   data () {
     return {
-      dragThreshold: 0.5,
+      container: null, // 下拉容器
+      dragThreshold: 0.8, // 下拉阈值
       moveCount: 300,
-      // state: {},
-      // 0:未开始加载， 1:开始加载， 2:加载成功， 3:加载失败
+      // 0:未开始加载， 1:释放刷新， 2:刷新中， 3:刷新成功， 4:刷新失败
       state: 0,
-      container: null,
-      dragStart: 0
+      pullText: '', // 不同阶段的提示文字
+      dragStart: null, // 触发下拉时初始Y坐标位置
+      refreshing: false, // 是否在下拉或刷新过程中,作用：当处于刷新过程中，不可再进行下拉防止重复触发刷新
+
+      imgSrc: '~assets/images/loading/loading-pull.png'
     }
   },
   mounted () {
-    var touchDom = document.querySelector('.pull-down-content')
-    this.container = touchDom
-    this.bindEvent(touchDom)
+    this.container = document.querySelector('.pull-down-content')
+    this.bindEvent()
   },
   methods: {
     touchStart (event) {
       var self = this
+      if (self.refreshing) {
+        return
+      }
       // 当前的event对象 = event中的touches[0]对象
       event = event.touches[0]
       // 初始位置的Y坐标等于点击位置位于窗口的垂直坐标
@@ -34,17 +59,23 @@ export default {
     },
     touchMove (event) {
       var self = this
+
+      if (self.refreshing) {
+        return
+      }
       // 如果没有获取到初始坐标
       if (self.dragStart === null) {
         return
       }
+
       // 当前的target对象 = event中的touches[0]对象
       var target = event.touches[0]
       // 滑动的百分比值
       self.percentage = (self.dragStart - target.clientY) / window.screen.height
 
-      // 当容器scrolltop是0且往下滚动时才触发
+      // 当下拉容器scrolltop是0
       if (this.container.scrollTop == 0) {
+        // 且是往下滚动时触发
         if (self.percentage < 0) {
           event.preventDefault()
           // translateY位移比例
@@ -53,21 +84,20 @@ export default {
           self.joinRefreshFlag = true
           // 当下拉距离大于阈值时触发
           if (Math.abs(self.percentage) > self.dragThreshold) {
+            // this.pullText = '释放刷新'
             this.state = 1
           } else {
+            // this.pullText = '下拉刷新'
             this.state = 0
           }
           // 下拉容器translateY位移
           self.container.style.webkitTransform = 'translate3d(0,' + translateY + 'px,0)'
+          document.querySelector('.trans-rotate').style.webkitTransform = 'rotate(' + translateY + 'deg)'
         } else {
-          if (self.joinRefreshFlag == null) {
-            self.joinRefreshFlag = false
-          }
-        }
-      } else {
-        if (self.joinRefreshFlag == null) {
           self.joinRefreshFlag = false
         }
+      } else {
+        self.joinRefreshFlag = false
       }
     },
     touchEnd: function (event) {
@@ -76,22 +106,28 @@ export default {
       if (self.percentage === 0) {
         return
       }
+      if (self.refreshing) {
+        return
+      }
       // 如果下拉距离大于阈值时 且 刷新标识为true触发
       if (Math.abs(self.percentage) > self.dragThreshold && self.joinRefreshFlag) {
         // emit父元素方法
         this.$emit('pullRefresh')
+        self.refreshing = true
         setTimeout(() => {
           this.finishLoad()
         }, 2000)
         // 当前刷新状态
-        this.state = 1
-        // 容器当前样式：330毫秒位移至1.5rem位置处
+        this.pullText = '正在刷新'
+        this.state = 2
+        // 容器当前样式：330毫秒位移至1.2rem位置处
         self.container.style.webkitTransition = '330ms'
-        self.container.style.webkitTransform = 'translate3d(0,1.5rem,0)'
+        self.container.style.webkitTransform = 'translate3d(0,1.2rem,0)'
       } else {
         // 如果下拉距离小等于阈值 且 刷新标识为true触发
         if (self.joinRefreshFlag) {
-          // 容器当前样式：330毫秒返回原位
+          self.refreshing = false
+          // 容器当前样式：330毫秒速度返回原位
           self.container.style.webkitTransition = '330ms'
           self.container.style.webkitTransform = 'translate3d(0,0,0)'
         }
@@ -100,7 +136,7 @@ export default {
       // 重置joinRefreshFlag
       self.joinRefreshFlag = null
 
-      // 重置percentage
+      // 重置dragStart
       self.dragStart = null
 
       // 重置percentage
@@ -108,17 +144,22 @@ export default {
     },
     // 刷新成功
     finishLoad () {
-      this.state = 2
+      this.pullText = '刷新成功'
+      this.state = 3
+      // 刷新成功容器的偏移
       this.container.style.webkitTransition = '330ms'
-      this.container.style.webkitTransform = 'translate3d(0,1rem,0)'
+      this.container.style.webkitTransform = 'translate3d(0,1.2rem,0)'
       // 2秒收执行自身，返回容器初始位置
       setTimeout(function () {
-        this.container.style.webkitTransform = 'translate3d(0,0,0)'
+        this.pullText = ''
+        this.refreshing = false
         this.state = 0
+        this.container.style.webkitTransform = 'translate3d(0,0,0)'
       }.bind(this), 2000)
     },
 
-    bindEvent (touchDom) {
+    bindEvent () {
+      var touchDom = this.container
       touchDom.addEventListener('touchstart', this.touchStart)
       touchDom.addEventListener('touchmove', this.touchMove)
       touchDom.addEventListener('touchend', this.touchEnd)
@@ -126,10 +167,40 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .pull-down-content {
+  position: relative;
   height: 1500px;
-  background: #00a7f2;
-  margin: 100px;
+  background: #f00;
+  .refresh-state {
+    position: absolute;
+    width: 100%;
+    height: 1.2rem;
+    top: -1.2rem;
+    .loading-pull {
+      width: 64px;
+      height: 64px;
+      &.trans-rotate {
+        transition: none;
+      }
+      &.trans-rotate-none {
+        transform: none !important;
+        &.trans-refresh {
+          img {
+            animation: refresh 2s infinite linear !important;
+          }
+          transform: inherit !important;
+        }
+      }
+    }
+  }
+}
+@keyframes refresh {
+  0% {
+    transform: rotate(0deg) !important;
+  }
+  100% {
+    transform: rotate(360deg) !important;
+  }
 }
 </style>
