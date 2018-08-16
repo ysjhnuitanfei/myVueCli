@@ -39,6 +39,10 @@ export default {
     // 下拉刷新
     async pullRefresh () {
       this.pageIndex = 0
+      // 如果配合下拉刷新组件一起使用，下拉刷新时如果finish为加载完毕状态需将状态finish关闭
+      if (this.$refs.LoadMore.finish) {
+        this.$refs.LoadMore.finish = false
+      }
       await this.getList()
       // 如果刷新成功
       this.$refs.PullRefresh.finishLoad()
@@ -74,7 +78,7 @@ export default {
         Utils.toast('系统错误')
       }
       // 模拟加载完成，实际开发删除该代码
-      if (this.pageIndex >= 5) {
+      if (this.pageIndex >= 3) {
         this.$refs.LoadMore.finish = true
         return
       }

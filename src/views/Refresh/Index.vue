@@ -34,7 +34,6 @@ export default {
     // 下拉刷新
     async pullRefresh () {
       await this.getList()
-      console.log(this.isSuccess)
       // 如果刷新成功
       this.$refs.PullRefresh.finishLoad()
     },

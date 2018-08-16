@@ -49,6 +49,7 @@ export default {
         } else {
           // 如果页面不足一屏且还有下一页数据，继续执行加载更多方法
           if (!this.finish) {
+            this.showState = true
             setTimeout(() => {
               this.$emit('loadMore')
             }, 1000)
