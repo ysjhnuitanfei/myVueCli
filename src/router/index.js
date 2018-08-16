@@ -7,7 +7,8 @@ const Index = resolve => require(['@/views/Index/Index'], resolve)
 const Vux = resolve => require(['@/views/Vux/Index'], resolve)
 const Request = resolve => require(['@/views/Request/Index'], resolve)
 const Scroll = resolve => require(['@/views/Scroll/Index'], resolve)
-const Touch = resolve => require(['@/views/Touch/Index'], resolve)
+const Refresh = resolve => require(['@/views/Refresh/Index'], resolve)
+const RefreshMore = resolve => require(['@/views/RefreshMore/Index'], resolve)
 
 let router = new Router({
   routes: [
@@ -28,6 +29,7 @@ let router = new Router({
         }
       ]
     },
+    // 全局提示
     {
       path: '/vux',
       component: Vux,
@@ -36,13 +38,7 @@ let router = new Router({
         showHeader: true
       }
     },
-    {
-      path: '/request',
-      component: Request,
-      meta: {
-        title: 'Request'
-      }
-    },
+    // 接口请求2
     {
       path: '/scroll',
       component: Scroll,
@@ -51,6 +47,7 @@ let router = new Router({
       }
 
     },
+    // 接口请求1
     {
       path: '/request',
       component: Request,
@@ -58,11 +55,20 @@ let router = new Router({
         title: 'Request'
       }
     },
+    // 下拉刷新
     {
-      path: '/touch',
-      component: Touch,
+      path: '/refresh',
+      component: Refresh,
       meta: {
-        title: 'Touch'
+        title: 'Refresh'
+      }
+    },
+    // 下拉刷新&&加载更多
+    {
+      path: '/refreshMore',
+      component: RefreshMore,
+      meta: {
+        title: 'RefreshMore'
       }
     }
   ]

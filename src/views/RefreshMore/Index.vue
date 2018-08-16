@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <Refresh ref="PullRefresh" @pullRefresh="pullRefresh" :isSuccess="isSuccess">
     <LoadMore ref="LoadMore" @loadMore="onScrollBottom">
       <div style="padding:20px;background:#00a7f2">热门推荐</div>
       <div class="card-item" v-for="(list, index) in hot" :key="index">
@@ -13,26 +13,37 @@
         </div>
       </div>
     </LoadMore>
-  </div>
+  </Refresh>
 </template>
 <script>
 import Utils from '@/utils'
 import API from '@/api'
 
+import Refresh from '@/public/PullRefresh/Index.vue'
 import LoadMore from '@/public/LoadMore/Index.vue'
 export default {
   name: '',
   components: {
+    Refresh,
     LoadMore
   },
   data () {
     return {
       hot: [],
       list: [],
-      pageIndex: 0
+      pageIndex: 0,
+      isSuccess: false
     }
   },
   methods: {
+    // 下拉刷新
+    async pullRefresh () {
+      this.pageIndex = 0
+      await this.getList()
+      // 如果刷新成功
+      this.$refs.PullRefresh.finishLoad()
+    },
+    // 加载更多
     onScrollBottom () {
       this.getList()
     },
@@ -40,10 +51,16 @@ export default {
       this.pageIndex++
       var result = await API.home.list({
         loading: false, // 请求接口中是否开启loading
-        acceptError: true // 是否允许自行处理错误信息
+        acceptError: true, // 是否允许自行处理错误信息
+        pageIndex: this.pageIndex
       })
+      if (this.pageIndex == 1) {
+        this.hot = []
+      }
 
       if (result.code === 0) {
+        // 如果刷新成功
+        this.isSuccess = true
         this.hot = this.hot.concat(result.data.hot)
         this.list = this.list.concat(result.data.list)
 
@@ -52,6 +69,8 @@ export default {
           this.$refs.LoadMore.finish = true
         }
       } else {
+        // 如果刷新失败
+        this.isSuccess = false
         Utils.toast('系统错误')
       }
       // 模拟加载完成，实际开发删除该代码

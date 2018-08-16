@@ -5,18 +5,18 @@
         <img class="full" src="~assets/images/loading/loading-pull.png">
       </div>
       <div class="loading-pull  trans-rotate" v-if="state == 1">
-        <img v-if="state == 1" class="full" src="~assets/images/loading/loading-pulled.png">
+        <img class="full" src="~assets/images/loading/loading-pulled.png">
       </div>
-      <div class="loading-pull trans-rotate-none trans-refresh" v-if="state == 2">
-        <img v-if="state == 2" class="full" src="~assets/images/loading/loading-refresh.png">
+      <div class="loading-pull trans-rotate-none" :class="{'trans-refresh':state==2}" v-if="state == 2">
+        <img class="full" src="~assets/images/loading/loading-refresh.png">
       </div>
-      <div class="loading-pull trans-rotate-none trans-ok" v-if="state == 3">
-        <img v-if="state == 3" class="full" src="~assets/images/loading/loading-ok.png">
+      <div class="loading-pull trans-rotate-none" v-if="state == 3">
+        <img class="full" src="~assets/images/loading/loading-ok.png">
       </div>
-      <div class="loading-pull trans-rotate-none trans-error" v-if="state == 4">
-        <img v-if="state == 4" class="full" src="~assets/images/loading/loading-error.png">
+      <div class="loading-pull trans-rotate-none" v-if="state == 4">
+        <img class="full" src="~assets/images/loading/loading-error.png">
       </div>
-      <span>{{pullText}}</span>
+      <span class="pull-text">{{pullText}}</span>
     </div>
     <slot></slot>
   </div>
@@ -116,7 +116,7 @@ export default {
         self.refreshing = true
         setTimeout(() => {
           this.finishLoad()
-        }, 2000)
+        }, 5000)
         // 当前刷新状态
         this.pullText = '正在刷新'
         this.state = 2
@@ -180,27 +180,29 @@ export default {
     .loading-pull {
       width: 64px;
       height: 64px;
-      &.trans-rotate {
-        transition: none;
-      }
       &.trans-rotate-none {
         transform: none !important;
         &.trans-refresh {
           img {
-            animation: refresh 2s infinite linear !important;
+            animation: refresh 1s infinite linear;
           }
-          transform: inherit !important;
         }
       }
+    }
+
+    .pull-text {
+      margin-left: 10px;
+      font-size: 46px;
+      color: #00a7f2;
     }
   }
 }
 @keyframes refresh {
   0% {
-    transform: rotate(0deg) !important;
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg) !important;
+    transform: rotate(360deg);
   }
 }
 </style>

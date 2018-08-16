@@ -1,17 +1,19 @@
 <template>
-  <LoadMore ref="LoadMore" @loadMore="onScrollBottom">
-    <div style="padding:20px;background:#00a7f2">热门推荐</div>
-    <div class="card-item" v-for="(list, index) in hot" :key="index">
-      <img :src="list.h5_thumb">
-      <div class="mess">
-        <div class="title" v-if="list.brand">{{list.brand}}</div>
-        <div class="monry">{{list.title}}</div>
-        <div class="monry">指导价：{{list.fee}}</div>
-        <div class="monry">首付：{{list.down_pay}}</div>
-        <div class="monry">佣金：{{list.month_pay}}</div>
+  <div class="page">
+    <LoadMore ref="LoadMore" @loadMore="onScrollBottom">
+      <div style="padding:20px;background:#00a7f2">热门推荐</div>
+      <div class="card-item" v-for="(list, index) in hot" :key="index">
+        <img :src="list.h5_thumb">
+        <div class="mess">
+          <div class="title" v-if="list.brand">{{list.brand}}</div>
+          <div class="monry">{{list.title}}</div>
+          <div class="monry">指导价：{{list.fee}}</div>
+          <div class="monry">首付：{{list.down_pay}}</div>
+          <div class="monry">佣金：{{list.month_pay}}</div>
+        </div>
       </div>
-    </div>
-  </LoadMore>
+    </LoadMore>
+  </div>
 </template>
 <script>
 import Utils from '@/utils'
