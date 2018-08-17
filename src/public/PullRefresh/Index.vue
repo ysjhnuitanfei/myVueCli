@@ -72,14 +72,14 @@ export default {
       var targetY = event.touches[0].clientY
       // 滑动的百分比值 = （初始Y坐标 - 实时Y坐标）/ 浏览器实际像素高
       self.percentage = (self.dragStart - targetY) / window.screen.height
-
+      // translateY位移比例
+      let translateY = -self.percentage * self.moveCount
       // 当下拉容器父元素scrolltop是0
       if (document.querySelector('.page').scrollTop === 0) {
         // 且是往下滚动时触发
         if (self.percentage < 0) {
           event.preventDefault()
-          // translateY位移比例
-          var translateY = -self.percentage * self.moveCount
+
           // 创建刷新标识
           self.joinRefreshFlag = true
           // 当下拉距离大于阈值时触发
@@ -95,6 +95,13 @@ export default {
           document.querySelector('.trans-rotate').style.webkitTransform = 'rotate(' + translateY + 'deg)'
         } else {
           self.joinRefreshFlag = false
+        }
+        // 拉倒底部继续上拉回弹效果，如果不用，删除此判断
+      } else if (this.container.getBoundingClientRect().bottom <= window.innerHeight) {
+        if (self.percentage > 0) {
+          event.preventDefault()
+          // 下拉容器-translateY位移
+          self.container.style.webkitTransform = 'translate3d(0,' + translateY + 'px,0)'
         }
       } else {
         self.joinRefreshFlag = false
@@ -121,13 +128,10 @@ export default {
         self.container.style.webkitTransition = '330ms'
         self.container.style.webkitTransform = 'translate3d(0,1.2rem,0)'
       } else {
-        // 如果下拉距离小等于阈值 且 刷新标识为true触发
-        if (self.joinRefreshFlag) {
-          self.refreshing = false
-          // 容器当前样式：330毫秒速度返回原位
-          self.container.style.webkitTransition = '330ms'
-          self.container.style.webkitTransform = 'translate3d(0,0,0)'
-        }
+        self.refreshing = false
+        // 容器当前样式：330毫秒速度返回原位
+        self.container.style.webkitTransition = '330ms'
+        self.container.style.webkitTransform = 'translate3d(0,0,0)'
       }
 
       // 重置joinRefreshFlag
@@ -146,13 +150,13 @@ export default {
         this.pullText = '刷新失败'
         this.state = 4
       }
-      // 2秒收执行自身，返回容器初始位置
+      // 1秒收执行自身，返回容器初始位置
       setTimeout(function () {
         this.pullText = ''
         this.refreshing = false
         this.state = 0
         this.container.style.webkitTransform = 'translate3d(0,0,0)'
-      }.bind(this), 2000)
+      }.bind(this), 1000)
     },
     bindEvent () {
       var touchDom = this.container
