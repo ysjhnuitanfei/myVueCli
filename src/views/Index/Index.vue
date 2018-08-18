@@ -50,4 +50,4 @@ export default {
     background: #ccc;
   }
 }
-</style>
+</style> 
