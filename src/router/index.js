@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store/'
 
 Vue.use(Router)
+const Welcome = resolve => require(['@/views/Welcome/Index'], resolve)
 const Index = resolve => require(['@/views/Index/Index'], resolve)
 const Vux = resolve => require(['@/views/Vux/Index'], resolve)
 const Request = resolve => require(['@/views/Request/Index'], resolve)
@@ -14,20 +15,29 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: 'index',
-      component: Index,
+      redirect: 'welcome',
+      component: Welcome,
       children: [
         {
-          path: 'index',
-          component: Index,
-          name: 'Index',
+          path: 'welcome',
+          component: Welcome,
+          name: 'Welcome',
           meta: {
-            title: '首页',
+            title: '欢迎页',
             menu: true,
             showHeader: false
           }
         }
       ]
+    },
+    // 首页
+    {
+      path: '/index',
+      component: Index,
+      meta: {
+        title: '首页',
+        showHeader: false
+      }
     },
     // 全局提示
     {

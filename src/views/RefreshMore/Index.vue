@@ -58,7 +58,7 @@ export default {
         acceptError: true, // 是否允许自行处理错误信息
         pageIndex: this.pageIndex
       })
-      if (this.pageIndex == 1) {
+      if (this.pageIndex === 1) {
         this.hot = []
       }
 
