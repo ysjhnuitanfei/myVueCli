@@ -10,77 +10,92 @@ const Request = resolve => require(['@/views/Request/Index'], resolve)
 const Scroll = resolve => require(['@/views/Scroll/Index'], resolve)
 const Refresh = resolve => require(['@/views/Refresh/Index'], resolve)
 const RefreshMore = resolve => require(['@/views/RefreshMore/Index'], resolve)
+const Share = resolve => require(['@/views/Share/Index'], resolve)
+const Lottery = resolve => require(['@/views/Lottery/Index'], resolve)
 
 let router = new Router({
-  routes: [
-    {
-      path: '/',
-      redirect: 'welcome',
+  routes: [{
+    path: '/',
+    redirect: 'welcome',
+    component: Welcome,
+    children: [{
+      path: 'welcome',
       component: Welcome,
-      children: [
-        {
-          path: 'welcome',
-          component: Welcome,
-          name: 'Welcome',
-          meta: {
-            title: '欢迎页',
-            menu: true,
-            showHeader: false
-          }
-        }
-      ]
-    },
-    // 首页
-    {
-      path: '/index',
-      component: Index,
+      name: 'Welcome',
       meta: {
-        title: '首页',
+        title: '欢迎页',
+        menu: true,
         showHeader: false
       }
-    },
-    // 全局提示
-    {
-      path: '/vux',
-      component: Vux,
-      meta: {
-        title: 'vux-toast',
-        showHeader: true
-      }
-    },
-    // 接口请求2
-    {
-      path: '/scroll',
-      component: Scroll,
-      meta: {
-        title: 'Scroll'
-      }
-
-    },
-    // 接口请求1
-    {
-      path: '/request',
-      component: Request,
-      meta: {
-        title: 'Request'
-      }
-    },
-    // 下拉刷新
-    {
-      path: '/refresh',
-      component: Refresh,
-      meta: {
-        title: 'Refresh'
-      }
-    },
-    // 下拉刷新&&加载更多
-    {
-      path: '/refreshMore',
-      component: RefreshMore,
-      meta: {
-        title: 'RefreshMore'
-      }
+    }]
+  },
+    // 首页
+  {
+    path: '/index',
+    component: Index,
+    meta: {
+      title: '首页',
+      showHeader: false
     }
+  },
+    // 全局提示
+  {
+    path: '/vux',
+    component: Vux,
+    meta: {
+      title: 'vux-toast',
+      showHeader: true
+    }
+  },
+    // 接口请求2
+  {
+    path: '/scroll',
+    component: Scroll,
+    meta: {
+      title: 'Scroll'
+    }
+
+  },
+    // 接口请求1
+  {
+    path: '/request',
+    component: Request,
+    meta: {
+      title: 'Request'
+    }
+  },
+    // 下拉刷新
+  {
+    path: '/refresh',
+    component: Refresh,
+    meta: {
+      title: 'Refresh'
+    }
+  },
+    // 下拉刷新&&加载更多
+  {
+    path: '/refreshMore',
+    component: RefreshMore,
+    meta: {
+      title: 'RefreshMore'
+    }
+  },
+    // 分享
+  {
+    path: '/share',
+    component: Share,
+    meta: {
+      title: 'Share'
+    }
+  },
+    // 抽奖
+  {
+    path: '/lottery',
+    component: Lottery,
+    meta: {
+      title: 'Lottery'
+    }
+  }
   ]
 })
 

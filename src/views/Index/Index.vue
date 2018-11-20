@@ -8,6 +8,8 @@
       <router-link class="a-link flex flex-center" :to="{path: '/request'}">加载更多1</router-link>
       <router-link class="a-link flex flex-center" :to="{path: '/scroll'}">加载更多2</router-link>
       <router-link class="a-link flex flex-center" :to="{path: '/backState'}">backState</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/share'}">分享</router-link>
+      <router-link class="a-link flex flex-center" :to="{path: '/lottery'}">抽奖</router-link>
       <router-link class="a-link flex flex-center" :to="{path: '/error'}">404页面</router-link>
     </div>
     <div style="height:2000px;"></div>
@@ -32,6 +34,10 @@ export default {
     }
   },
   mounted () {
+    this.$http.get('http://jsonplaceholder.typicode.com/users')
+      .then((data) => {
+        console.log(data)
+      })
   }
 }
 </script>
@@ -50,4 +56,4 @@ export default {
     background: #ccc;
   }
 }
-</style> 
+</style>

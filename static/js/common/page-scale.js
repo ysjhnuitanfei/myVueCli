@@ -1,7 +1,18 @@
 ;
 (function (win, document) {
+  var isMobile = ('ontouchstart' in win) && (!!win.navigator.userAgent.match(/(iPhone|iPad|Android|ios)/i))
+  if (!isMobile) {
+    win.addEventListener('load', function () {
+      document.body.style.fontSize = '12px'
+    })
+    return
+  } else {
+    win.addEventListener('load', function () {
+      document.body.className += ' mobile-contanier'
+    })
+  }
   var documentEl = document.documentElement
-  var maxwidth = 1080
+  var maxwidth = 540
   var dpr = devicePixelRatio == 4 ? 1 : devicePixelRatio
   var scale = 1 / dpr
   var tid = null
