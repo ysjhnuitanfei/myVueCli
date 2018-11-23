@@ -1,16 +1,5 @@
 ;
 (function (win, document) {
-  var isMobile = ('ontouchstart' in win) && (!!win.navigator.userAgent.match(/(iPhone|iPad|Android|ios)/i))
-  if (!isMobile) {
-    win.addEventListener('load', function () {
-      document.body.style.fontSize = '12px'
-    })
-    return
-  } else {
-    win.addEventListener('load', function () {
-      document.body.className += ' mobile-contanier'
-    })
-  }
   var documentEl = document.documentElement
   var maxwidth = 540
   var dpr = devicePixelRatio == 4 ? 1 : devicePixelRatio
@@ -30,6 +19,7 @@
     var width = documentEl.clientWidth
     if (width / dpr > maxwidth) {
       width = maxwidth * 1
+      console.log(width, designScale, rootFontSize)
     }
     // documentEl.style.fontSize = width / designScale + 'px'
     documentEl.style.fontSize = width / designScale / rootFontSize * 100 + '%'
@@ -53,5 +43,6 @@
     var body = document.getElementsByTagName('body')[0]
     body.style.maxWidth = designScale + 'rem'
     body.style.margin = '0 auto'
+    documentEl.style.fontSize = width / designScale / rootFontSize * 100 + '%'
   }, false)
 })(window, document)

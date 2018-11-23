@@ -2,9 +2,17 @@
 
 module.exports = {
   "plugins": {
-    "postcss-import": {},
-    "postcss-url": {},
-    // to edit target browsers: use "browserslist" field in package.json
-    "autoprefixer": {}
+    // to edit target browsers: use "browserlist" field in package.json
+    "autoprefixer": {
+      browsers: ['ie>= 8', 'iOS >= 7', 'Android >= 4.1']
+    },
+    'postcss-pxtorem': {
+      rootValue: 100,
+      unitPrecision: 8,
+      propWhiteList: [],
+      replace: true,
+      mediaQuery: false,
+      minPixelValue: 0
+    }
   }
 }

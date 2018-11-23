@@ -12,6 +12,7 @@
       <router-link class="a-link flex flex-center" :to="{path: '/lottery'}">抽奖</router-link>
       <router-link class="a-link flex flex-center" :to="{path: '/error'}">404页面</router-link>
     </div>
+    <div class="demo">123</div>
     <div style="height:2000px;"></div>
   </div>
 </template>
@@ -42,6 +43,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.demo {
+  width: 200px;
+  line-height: 30px;
+  background: #f00;
+}
 .page {
   .demo-item {
     margin-top: -20px;
